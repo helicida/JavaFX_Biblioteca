@@ -136,35 +136,53 @@ public class Controller {
 
     public void listaLibrosFueraPlazo(ActionEvent actionEvent) {
 
+        scrollText.setText("\n   Llista de llibres fora de temps");
+        ObservableList<String> librosFueraPlazo = FXCollections.observableArrayList(); // ObservableList para nuestro listView
         scrollPane.setVisible(true);
-        scrollText.setText("\n   LLISTA DE LLIBRES FORA DE TERMINI");
-        Date today = new Date();
 
+        Date today = new Date();
         for (int iterador = 0; iterador < prestecs.size(); iterador++) {
-            scrollText.setText(String.valueOf(iterador));
             if (today.equals(prestecs.get(iterador).getDataFinal()) || today.after(prestecs.get(iterador).getDataFinal())) {
-                scrollText.setText("\n" + scrollText.getText() +
-                        "\n\n" + prestecs.get(iterador).getLlibre().toString() +
+                librosFueraPlazo.add(prestecs.get(iterador).getLlibre().toString() +
                         "\n     Data Actual: " + new Date().toString() +
                         "\n     Data Limit: " + prestecs.get(iterador).getDataFinal().toString());
             }
+        }
+
+        // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
+
+        if(librosFueraPlazo.size() == 0){
+            scrollText.setText("  No n'hi han resultats");
+        }
+        else {
+            listView.setItems(librosFueraPlazo);
+            listView.setVisible(true);
         }
     }
 
     public void listaSociosFueraPlazo(ActionEvent actionEvent) {
 
+        scrollText.setText("\n   Llista de socis amb llibres fora de temps");
+        ObservableList<String> sociosFueraPlazo = FXCollections.observableArrayList(); // ObservableList para nuestro listView
         scrollPane.setVisible(true);
-        scrollText.setText("\n   LLISTA DE SOCIS FORA DE TERMINI");
+
         Date today = new Date();
         for (int iterador = 0; iterador < prestecs.size(); iterador++) {
-
-            scrollText.setText(String.valueOf(iterador));
             if (today.equals(prestecs.get(iterador).getDataFinal()) || today.after(prestecs.get(iterador).getDataFinal())) {
-                scrollText.setText("\n" + scrollText.getText() +
-                        "\n\n" + prestecs.get(iterador).getSoci().toString() +
+                sociosFueraPlazo.add(prestecs.get(iterador).getSoci().toString() +
                         "\n     Data Actual: " + new Date().toString() +
                         "\n     Data Limit: " + prestecs.get(iterador).getDataFinal().toString());
             }
+        }
+
+        // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
+
+        if(sociosFueraPlazo.size() == 0){
+            scrollText.setText("  No n'hi han resultats");
+        }
+        else {
+            listView.setItems(sociosFueraPlazo);
+            listView.setVisible(true);
         }
     }
 
@@ -183,7 +201,6 @@ public class Controller {
             ocultarTodo();      // Ocultamos todos los campos para que no puedan haber modificaciones a la hora de anyadir
 
             // Y le asignamos su información
-
             llibre.setTitol(campoTexto1.getText());           // Extaemos el texto del campo y le asignamos titulo
             llibre.setNombreExemplars(campoTexto2.getText()); // Extaemos el texto del campo y le asignamos el numero de ejemplares
             llibre.setEditorial(campoTexto3.getText());       // Extaemos el texto del campo y le asignamos editorial
