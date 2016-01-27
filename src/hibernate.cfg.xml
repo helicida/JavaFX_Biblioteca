@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://172.31.104.79/biblioteca</property>
+        <property name="connection.username">sergi</property>
+        <property name="connection.password">alumne</property>
+        <property name="connection.pool_size">1</property>
+        <!--   <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
+        <!--    <property name="show_sql">true</property>-->
+        <property name="hbm2ddl.auto">update</property>  <!--create-drop-->
+        <mapping class="sample.Objetos.Llibre" />
+        <mapping class="sample.Objetos.Prestec" />
+        <mapping class="sample.Objetos.Soci" />
+    </session-factory>
+</hibernate-configuration>

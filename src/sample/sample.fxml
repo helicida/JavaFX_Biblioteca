@@ -1,44 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="304.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <MenuBar prefHeight="26.0" prefWidth="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Nuevo">
+          <Menu mnemonicParsing="false" text="Nou">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#anyadirLibro" text="Libro" />
-                  <MenuItem mnemonicParsing="false" onAction="#anyadirSocio" text="Socio" />
-                  <MenuItem mnemonicParsing="false" onAction="#anyadirPrestamo" text="Prestamo" />
+              <MenuItem mnemonicParsing="false" onAction="#crearLlibre" text="Llibre" />
+                  <MenuItem mnemonicParsing="false" onAction="#crearSoci" text="Soci" />
+                  <MenuItem mnemonicParsing="false" onAction="#crearPrestec" text="Prestec" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="Modificar">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Llibres" />
+                  <MenuItem mnemonicParsing="false" text="Socis" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Llistar">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#listaLlibres" text="Tots els Llibres" />
+                  <MenuItem mnemonicParsing="false" onAction="#listaSocis" text="Tots els Socis" />
+                  <MenuItem mnemonicParsing="false" onAction="#listaPrestecs" text="Tots els Prestecs" />
+                  <MenuItem mnemonicParsing="false" onAction="#listaLibrosFueraPlazo" text="Llibres Fora de Termini" />
+                  <MenuItem mnemonicParsing="false" onAction="#listaSociosFueraPlazo" text="Socis Fora de Termini" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
+            <Menu mnemonicParsing="false" text="Buscar">
+              <items>
+                  <Menu mnemonicParsing="false" text="Llibre">
+                    <items>
+                    <MenuItem mnemonicParsing="false" onAction="#buscarLibroPorTitulo" text="per Titol" />
+                        <MenuItem mnemonicParsing="false" onAction="#buscarLibroPorAutor" text="per Autor" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Soci">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#buscarSocioPorNombre" text="per Nom" />
+                        <MenuItem mnemonicParsing="false" onAction="#buscarSocioPorApellido" text="per Cognom" />
+                    </items>
+                  </Menu>
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Otros">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#deleteAll" text="Borrar Todo" />
+                  <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#close" text="Tancar" />
+               </items>
           </Menu>
         </menus>
       </MenuBar>
-      <Text id="nombreSeccion" layoutX="33.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <TextField fx:id="field1" layoutX="33.0" layoutY="77.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
-      <TextField fx:id="field2" layoutX="33.0" layoutY="123.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
-      <TextField fx:id="field3" layoutX="33.0" layoutY="168.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
-      <TextField fx:id="field4" layoutX="33.0" layoutY="213.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
-      <TextField fx:id="field5" layoutX="33.0" layoutY="259.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
-      <TextField fx:id="field6" layoutX="33.0" layoutY="304.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="100.0" />
+      <TextField fx:id="campoTexto1" layoutX="14.0" layoutY="68.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <TextField fx:id="campoTexto2" layoutX="14.0" layoutY="106.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <TextField fx:id="campoTexto3" layoutX="14.0" layoutY="146.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <TextField fx:id="campoTexto4" layoutX="14.0" layoutY="187.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <TextField fx:id="campoTexto5" layoutX="14.0" layoutY="229.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <TextField fx:id="campoTexto6" layoutX="14.0" layoutY="270.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" />
+      <Button fx:id="buttonGuardar" layoutX="29.0" layoutY="316.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="26.0" prefWidth="142.0" text="Guardar" />
+      <Text fx:id="textoInfoSeccion" fill="WHITE" layoutX="13.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benvingut a la biblioteca" wrappingWidth="376.00000008940697" />
+      <TextField fx:id="campoBusqueda" layoutX="14.0" layoutY="81.0" />
+      <Button fx:id="buttonBuscar" layoutX="203.0" layoutY="81.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+      <Text fx:id="textoAyudaFechas" fill="WHITE" layoutX="14.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.999999165535" />
+       <ScrollPane fx:id="scrollPane" layoutX="4.0" layoutY="48.0" prefHeight="371.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+           <content>
+               <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo ListView" wrappingWidth="357.7294921875" />
+           </content>
+       </ScrollPane>
+      <ListView fx:id="listView" layoutX="-2.0" layoutY="62.0" prefHeight="389.0" prefWidth="400.0" visible="false" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" />
    </children>
 </AnchorPane>
