@@ -63,23 +63,43 @@ public class Controller {
     // Metodos
 
     public void initialize() {
-        //descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
+        descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
     }
 
     public void descargarDatosBBDD() {
 
         try {
+
+            llibres.clear();
             llibres = DAO.obtenirLlibres();   // Llenamos nuestro array de libros con los de la BBDD
+
+            observableLlibres.clear();
+
+            for(int iterador = 0; iterador < llibres.size(); iterador++){
+                observableLlibres.add(llibres.get(iterador).toString());
+            }
         }
         catch (Exception noBooks){}
 
         try {
             socis = DAO.obtenirSocis();   // Llenamos nuestro array de socios con los de la BBDD
+
+            observableSocis.clear();
+
+            for(int iterador = 0; iterador < socis.size(); iterador++){
+                observableLlibres.add(socis.get(iterador).toString());
+            }
         }
         catch (Exception noMembers) {}
 
         try {
-            prestecs = DAO.obtenirPrestecs();  // Llenamos nuestro array de prestamos con los de la BBDD
+            observablePrestec.clear();
+
+            prestecs = DAO.obtenirPrestecs();   // Llenamos nuestro array de socios con los de la BBDD
+
+            for(int iterador = 0; iterador < prestecs.size(); iterador++){
+                observablePrestec.add(prestecs.get(iterador).toString());
+            }
         }
         catch (Exception noLoans){}
     }
@@ -94,6 +114,7 @@ public class Controller {
         // Comprobamos nuestro array y mostramos lo que contiene
 
         if (llibres.size() == 0){
+            listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n       No n'hi ha cap llibre");
         }
         else {
@@ -104,12 +125,13 @@ public class Controller {
 
     public void listaSocis(ActionEvent actionEvent) {
 
-        scrollText.setText("\n   Llistat de socis");    // Le asignamos el titulo
+        scrollText.setText("   Llistat de socis");    // Le asignamos el titulo
         scrollPane.setVisible(true);                    // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
 
         if (socis.size() == 0){
+            listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n      No n'hi ha cap soci");
         }
         else {
@@ -120,12 +142,13 @@ public class Controller {
 
     public void listaPrestecs(ActionEvent actionEvent) {
 
-        scrollText.setText("\n   Llista de prestecs");    // Le asignamos el titulo
+        scrollText.setText("   Llista de prestecs");    // Le asignamos el titulo
         scrollPane.setVisible(true);                      // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
 
         if (prestecs.size() == 0){
+            listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n       No n'hi ha cap prestec");
         }
         else {

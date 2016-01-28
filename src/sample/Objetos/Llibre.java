@@ -53,7 +53,7 @@ public class Llibre implements Serializable {
     public void setAnyEdicio(String anyEdicio) {this.anyEdicio = anyEdicio;}
 
     public String toString() {
-        return "\n     Titol: " + titol +
+        return "     Titol: " + titol +
                 "\n     Autor: "+ autor +
                 "\n     Nombre Exemplars: " + nombreExemplars +
                 "\n     Editorial: " + editorial +

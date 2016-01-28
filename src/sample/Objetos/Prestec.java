@@ -43,7 +43,7 @@ public class Prestec implements Serializable
     public void setDataFinal(Date dataFinal) {this.dataFinal = dataFinal;}
 
     public String toString() {
-        return "\n     Data Inici: " + dataInici +
+        return "     Data Inici: " + dataInici +
                 "\n     Data Final: " + dataFinal +
                 "\n     Soci: " + soci.toString() +
                 "\n     LLibre: " + llibre.toString();

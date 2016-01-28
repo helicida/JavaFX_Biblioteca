@@ -69,7 +69,7 @@ public class Soci implements Serializable {
 
 
     public String toString() {
-        return "\n     Nom: " + nom +
+        return "     Nom: " + nom +
                 "\n     Cognom: " + cognom +
                 "\n     Edat: " + edat +
                 "\n     Direcció: " + direccio +
