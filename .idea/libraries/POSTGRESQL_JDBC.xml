@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="POSTGRESQL-JDBC">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/POSTGRESQL-JDBC.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
