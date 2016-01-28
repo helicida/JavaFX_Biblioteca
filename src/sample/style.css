@@ -35,6 +35,10 @@
     -fx-table-header-border-color:derive(-fx-base,+20%);
 }
 
+.text-field {
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+}
+
 .split-pane:horizontal > * > .split-pane-divider {
     -fx-border-color: transparent -fx-base transparent -fx-base;
     -fx-background-color: transparent, derive(-fx-base,20%);

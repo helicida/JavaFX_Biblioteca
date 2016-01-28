@@ -3,10 +3,12 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import sample.Objetos.Llibre;
 import sample.Objetos.Prestec;
@@ -25,6 +27,7 @@ public class Controller {
     public DAO DAO = new DAO();
 
     public String dateError;        // Contiene un string que determina el tipo de error
+    public String tipoModificar;    // Contiene un string que determina que es lo que vamos a modificar (libro o socio)
     public String tipoNuevo;        // Contiene un string que identifica que es lo que vamos a añadir (libro, prestamo, etc)
     public String tipoBusqueda;     // Contiene un string que identifica que es lo que vamos a buscar (libro, prestamo, etc)
 
@@ -61,14 +64,12 @@ public class Controller {
     // Metodos
 
     public void initialize() {
-        descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
+        //descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
     }
 
     public void descargarDatosBBDD() {
 
         try {
-
-            llibres.clear();
             llibres = DAO.obtenirLlibres();   // Llenamos nuestro array de libros con los de la BBDD
 
             observableLlibres.clear();
@@ -113,12 +114,22 @@ public class Controller {
 
         if (llibres.size() == 0){
             listView.setItems(null);
-            scrollText.setText(scrollText.getText() + "\n\n       No n'hi ha cap llibre");
+            scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap llibre");
         }
         else {
             listView.setItems(observableLlibres); // Le acoplamos el adaptador al listView
             listView.setVisible(true);            // hacemos visible el listView
         }
+
+        // Para modificar cualquier libro se le hace clic encima
+        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tipoModificar = "libro";
+                int idListView = listView.getSelectionModel().getSelectedIndex();
+                mostrarCamposModificar(idListView);
+            }
+        });
     }
 
     public void listaSocis(ActionEvent actionEvent) {
@@ -130,12 +141,22 @@ public class Controller {
 
         if (socis.size() == 0){
             listView.setItems(null);
-            scrollText.setText(scrollText.getText() + "\n\n      No n'hi ha cap soci");
+            scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap soci");
         }
         else {
             listView.setItems(observableSocis);   // Le acoplamos el adaptador al listView
             listView.setVisible(true);            // hacemos visible el listView
         }
+
+        // Para modificar cualquier socio se le hace clic encima
+        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tipoModificar = "soci";
+                int idListView = listView.getSelectionModel().getSelectedIndex();
+                mostrarCamposModificar(idListView);
+            }
+        });
     }
 
     public void listaPrestecs(ActionEvent actionEvent) {
@@ -147,7 +168,7 @@ public class Controller {
 
         if (prestecs.size() == 0){
             listView.setItems(null);
-            scrollText.setText(scrollText.getText() + "\n\n       No n'hi ha cap prestec");
+            scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap prestec");
         }
         else {
             listView.setItems(observablePrestec); // Le acoplamos el adaptador al listView
@@ -171,9 +192,9 @@ public class Controller {
         }
 
         // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
         if(librosFueraPlazo.size() == 0){
-            scrollText.setText("  No n'hi han resultats");
+            listView.setItems(null);
+            scrollText.setText("    No n'hi han resultats");
         }
         else {
             listView.setItems(librosFueraPlazo);
@@ -199,7 +220,8 @@ public class Controller {
         // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
 
         if(sociosFueraPlazo.size() == 0){
-            scrollText.setText("  No n'hi han resultats");
+            listView.setItems(null);
+            scrollText.setText("    No n'hi han resultats");
         }
         else {
             listView.setItems(sociosFueraPlazo);
@@ -234,7 +256,7 @@ public class Controller {
             DAO.afegirLlibre(llibre);                   // Anyadimos el libro a nuestra BBDD
 
             textoInfoSeccion.setVisible(true);          // Hacemos visible el texto informativo
-            textoInfoSeccion.setText("\nS'ha creat el llibre: \n" + llibre.toString());
+            textoInfoSeccion.setText("\nS'ha creat correctament el llibre: \n" + llibre.toString());
 
         }
     }
@@ -264,7 +286,7 @@ public class Controller {
             DAO.afegirSoci(soci);                   // Anyadimos el libro a nuestra BBDD
 
             textoInfoSeccion.setVisible(true);      // Hacemos visible el texto informativo
-            textoInfoSeccion.setText("\nCREAT SOCI: \n" + soci.toString());
+            textoInfoSeccion.setText("\nS'ha creat correctament el soci: \n" + soci.toString());
         }
     }
 
@@ -359,7 +381,7 @@ public class Controller {
         campoTexto5.setPromptText("Any Edició");         // Le damos el texto provisional al campoTexto5
         campoTexto6.setPromptText("Autor");              // Le damos el texto provisional al campoTexto6
 
-        mostarCamposCrear();    // Mostramos todos los campos correspondientes a crear un libro
+        mostarCamposCrear(true);    // Mostramos todos los campos correspondientes a crear un libro
     }
 
     public void crearSoci(ActionEvent actionEvent)  {
@@ -373,7 +395,7 @@ public class Controller {
         campoTexto4.setPromptText("Direccio");         // Le damos el texto provisional al campoTexto4
         campoTexto5.setPromptText("Telefon");          // Le damos el texto provisional al campoTexto5
 
-        mostarCamposCrear();    // Mostramos todos los campos correspondientes a crear un socio
+        mostarCamposCrear(true);    // Mostramos todos los campos correspondientes a crear un socio
     }
 
     public void crearPrestec(ActionEvent actionEvent) {
@@ -387,7 +409,7 @@ public class Controller {
         campoTexto4.setPromptText("Data Final DD/MM/YYYY");                                      // Le damos el texto provisional al campoTexto4
         textoAyudaFechas.setText("\nEl format de les Dates ha de ser   \"  DD/MM/YYYY  \"");    // Texto de advertencia para las fechas
 
-        mostarCamposCrear();    // Mostramos todos los campos correspondientes a crear un prestamo
+        mostarCamposCrear(true);            // Mostramos todos los campos correspondientes a crear un prestamo
         textoAyudaFechas.setVisible(true);  // Y en este caso tambien mostramos el texto de ayuda para las fechas
     }
 
@@ -493,7 +515,6 @@ public class Controller {
             }
 
             // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
             if(busquedaAutor.size() == 0){
                 scrollText.setText("  No n'hi han resultats");
             }
@@ -516,7 +537,6 @@ public class Controller {
             }
 
             // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
             if(busquedaNombre.size() == 0){
                 scrollText.setText("  No n'hi han resultats");
             }
@@ -549,17 +569,54 @@ public class Controller {
         }
     }
 
-    public void mostarCamposCrear() {
+    public void mostrarCamposModificar(int idListView){
 
-        ocultarTodo();                       // Ocultamos primero todos los elementos
+       // El id del list view será igual a la posición en el arrayList del item seleccionado
+
+        if(tipoModificar.equals("libro")){  // Si lo que queremos modificar es un libro
+            tipoNuevo = "libro";
+
+            // Seteamos todos los campos con los datos del libro que queremos modificar
+            campoTexto1.setText(llibres.get(idListView).getTitol());
+            campoTexto2.setText(llibres.get(idListView).getNombreExemplars());
+            campoTexto3.setText(llibres.get(idListView).getEditorial());
+            campoTexto4.setText(llibres.get(idListView).getNombrePagines());
+            campoTexto5.setText(llibres.get(idListView).getAnyEdicio());
+            campoTexto6.setText(llibres.get(idListView).getAutor());
+
+            ocultarTodo();              // Ocultamos todo
+            mostarCamposCrear(false);   // Y mostramos los campos
+        }
+        else{
+            tipoNuevo = "soci"; // Si lo que queremos modificar es un socio
+
+            // Seteamos todos los campos con los datos del socio que queremos modificar
+            campoTexto1.setText(socis.get(idListView).getNom());
+            campoTexto2.setText(socis.get(idListView).getCognom());
+            campoTexto3.setText(socis.get(idListView).getEdat());
+            campoTexto4.setText(socis.get(idListView).getDireccio());
+            campoTexto5.setText(socis.get(idListView).getEdat());
+
+            ocultarTodo();              // Ocultamos todo
+            mostarCamposCrear(false);   // Y mostramos los campos
+        }
+    }
+
+    public void mostarCamposCrear(boolean limpiarCampos) {
+
+        // Si el booleano limpiar campos es true, antes de mostrarlos, limpiaremos los fields
+
+        ocultarTodo();   // Ocultamos primero todos los elementos
 
         buttonGuardar.requestFocus();
 
-        // Limpiamos los campos
-        campoTexto1.clear();
-        campoTexto2.clear();
-        campoTexto3.clear();
-        campoTexto4.clear();
+        if(limpiarCampos == true){
+            // Limpiamos los campos
+            campoTexto1.clear();
+            campoTexto2.clear();
+            campoTexto3.clear();
+            campoTexto4.clear();
+        }
 
         // Hacemos visible los elementos
 
@@ -574,13 +631,18 @@ public class Controller {
         // Según lo que estemos mostrando será necesario enseñar un campo u otro
 
         if (tipoNuevo.equals("soci")) {
-            campoTexto5.clear();             // Limpiamos el texto del campo
+            if(limpiarCampos == true){
+                campoTexto5.clear();         // Limpiamos el texto del campo
+            }
             campoTexto5.setVisible(true);    // Mostramos el campo de texto 5
         }
         else if (tipoNuevo.equals("libro")) {
-            campoTexto5.clear();             // Limpiamos el texto del campo
+            if(limpiarCampos == true){
+                campoTexto5.clear();         // Limpiamos el texto del campo
+                campoTexto6.clear();         // Limpiamos el texto del campos
+            }
+
             campoTexto5.setVisible(true);    // Mostramos el campo de texto 5
-            campoTexto6.clear();             // Limpiamos el texto del campos
             campoTexto6.setVisible(true);    // Mostramos el campo de texto 6
         }
     }
@@ -636,12 +698,12 @@ public class Controller {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Biblioteca v0.1");
         alert.setHeaderText("Biblioteca v0.1");
-        alert.setContentText(" Benvingut a la Biblioteca virtual. Tens disponible les seguents opcions: " +
-                "\n\n Afegir Llibres, Socis i Prestecs. " +
-                "\n\n Veure els llistats de Llibres, Socis i Prestecs. " +
-                "\n\n Modificar Llibres, Socis i Prestecs." +
-                "\n\n Buscar Llibres i Socis. " +
-                "\n Developed by Sergi Barjola." + "\n" + "Project aviable on gitHub:" + "https://github.com/helicida/Biblioteca");
+        alert.setContentText(" Benvingut a la Biblioteca virtual." +
+                "\nPodras modificar, afegir i cercar llibres, socis i prestecs " +
+                "\nDeveloped by Sergi Barjola. Project aviable on gitHub:" +
+                "\nhttps://github.com/helicida/Biblioteca" +
+                "\n               " +
+                "\n               ");
 
         alert.showAndWait();
     }
