@@ -69,7 +69,10 @@
       <Text fx:id="textoAyudaFechas" fill="WHITE" layoutX="14.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.999999165535" />
        <ScrollPane fx:id="scrollPane" layoutX="4.0" layoutY="48.0" prefHeight="371.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
            <content>
-               <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo ListView" wrappingWidth="357.7294921875" />
+               <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo ListView" textAlignment="CENTER" wrappingWidth="399.7294921875">
+               <font>
+                  <Font size="25.0" />
+               </font></Text>
            </content>
        </ScrollPane>
       <ListView fx:id="listView" layoutX="-2.0" layoutY="62.0" prefHeight="389.0" prefWidth="400.0" visible="false" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" />

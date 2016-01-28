@@ -180,9 +180,7 @@ public class DAO {
             session.createQuery("DELETE FROM Llibre WHERE toString LIKE "+toString).executeUpdate();
             session.close();
         }
-        catch (Exception one){
-
-        }
+        catch (Exception one){}
     }
 
     public void eliminarSoci(String toString) {
@@ -195,10 +193,7 @@ public class DAO {
             // Eliminamos el socio
             session.createQuery("DELETE FROM Soci WHERE toString = " + toString).executeUpdate();
             session.close();
-
         }
-        catch (Exception one){
-
-        }
+        catch (Exception one){}
     }
 }

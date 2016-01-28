@@ -4,7 +4,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-
 /**
  * Created by 46465442z on 24/01/16.
  */

@@ -11,8 +11,6 @@ import javafx.scene.text.Text;
 import sample.Objetos.Llibre;
 import sample.Objetos.Prestec;
 import sample.Objetos.Soci;
-
-import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,16 +34,16 @@ public class Controller {
     public Text scrollText;         // Texto dentro del scrollPane
     public Text textoInfoSeccion;   // Texto con el nombre de la seccion
     public Text textoAyudaFechas;   // Texto con informacion para saber como introducir las fechas correctamente
-    public TextField campoBusqueda;   // Campo para buscar
+    public TextField campoBusqueda; // Campo para buscar
 
     // Campos que reusaremos en cada seccion
 
-    public TextField campoTexto1;        // Campo1
-    public TextField campoTexto2;        // Campo2
-    public TextField campoTexto3;        // Campo3
-    public TextField campoTexto4;        // Campo4
-    public TextField campoTexto5;        // Campo5
-    public TextField campoTexto6;        // Campo6
+    public TextField campoTexto1;   // Campo1
+    public TextField campoTexto2;   // Campo2
+    public TextField campoTexto3;   // Campo3
+    public TextField campoTexto4;   // Campo4
+    public TextField campoTexto5;   // Campo5
+    public TextField campoTexto6;   // Campo6
 
     public Button buttonGuardar;  // Boton para guardar
     public Button buttonBuscar;   // Boton para buscar
@@ -53,7 +51,7 @@ public class Controller {
     public ListView listView;   // ListView para mostrar datos
 
     public ObservableList<String> observableLlibres = FXCollections.observableArrayList(); // ObservableList para nuestro listView
-    public ObservableList<String> observableSocis = FXCollections.observableArrayList(); // ObservableList para nuestro listView
+    public ObservableList<String> observableSocis = FXCollections.observableArrayList();   // ObservableList para nuestro listView
     public ObservableList<String> observablePrestec = FXCollections.observableArrayList(); // ObservableList para nuestro listView
 
     private ArrayList<Llibre> llibres = new ArrayList<>();      // Array de Libros
@@ -95,7 +93,7 @@ public class Controller {
         try {
             observablePrestec.clear();
 
-            prestecs = DAO.obtenirPrestecs();   // Llenamos nuestro array de socios con los de la BBDD
+            prestecs = DAO.obtenirPrestecs();  // Llenamos nuestro array de socios con los de la BBDD
 
             for(int iterador = 0; iterador < prestecs.size(); iterador++){
                 observablePrestec.add(prestecs.get(iterador).toString());
@@ -108,7 +106,7 @@ public class Controller {
 
     public void listaLlibres(ActionEvent actionEvent) {
 
-        scrollText.setText("    Llistat de llibres");   // Le asignamos el titulo
+        scrollText.setText("Llistat de llibres");   // Le asignamos el titulo
         scrollPane.setVisible(true);                    // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
@@ -125,8 +123,8 @@ public class Controller {
 
     public void listaSocis(ActionEvent actionEvent) {
 
-        scrollText.setText("   Llistat de socis");    // Le asignamos el titulo
-        scrollPane.setVisible(true);                    // Hacemos visible el scrollPane con el texto
+        scrollText.setText("Llistat de socis");    // Le asignamos el titulo
+        scrollPane.setVisible(true);               // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
 
@@ -142,8 +140,8 @@ public class Controller {
 
     public void listaPrestecs(ActionEvent actionEvent) {
 
-        scrollText.setText("   Llista de prestecs");    // Le asignamos el titulo
-        scrollPane.setVisible(true);                      // Hacemos visible el scrollPane con el texto
+        scrollText.setText("Llista de prestecs");    // Le asignamos el titulo
+        scrollPane.setVisible(true);                 // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
 
@@ -235,7 +233,7 @@ public class Controller {
             llibres.add(llibre);                        // Anyadimos el libro a nuestro ArrayList
             DAO.afegirLlibre(llibre);                   // Anyadimos el libro a nuestra BBDD
 
-            textoInfoSeccion.setVisible(true);  // Hacemos visible el texto informativo
+            textoInfoSeccion.setVisible(true);          // Hacemos visible el texto informativo
             textoInfoSeccion.setText("\nS'ha creat el llibre: \n" + llibre.toString());
 
         }
@@ -265,7 +263,7 @@ public class Controller {
             socis.add(soci);                        // Anyadimos el libro a nuestro ArrayList
             DAO.afegirSoci(soci);                   // Anyadimos el libro a nuestra BBDD
 
-            textoInfoSeccion.setVisible(true);  // Hacemos visible el texto informativo
+            textoInfoSeccion.setVisible(true);      // Hacemos visible el texto informativo
             textoInfoSeccion.setText("\nCREAT SOCI: \n" + soci.toString());
         }
     }
@@ -318,7 +316,6 @@ public class Controller {
                     dateError = "Fechas Incorrectas";
                     throw new InvalidDateException();
                 }
-
 
                 try  {
                     textoInfoSeccion.setText("\nCREAT PRESTEC: \n" + prestec.toString());
@@ -473,7 +470,6 @@ public class Controller {
             }
 
             // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
             if(busquedaTitulo.size() == 0){
                 scrollText.setText("  No n'hi han resultats");
             }
@@ -543,7 +539,6 @@ public class Controller {
             }
 
             // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
             if(busquedaApellidos.size() == 0){
                 scrollText.setText("  No n'hi han resultats");
             }
@@ -568,12 +563,12 @@ public class Controller {
 
         // Hacemos visible los elementos
 
-        campoTexto1.setVisible(true);            // Mostramos el campo de texto 1
-        campoTexto2.setVisible(true);            // Mostramos el campo de texto 2
-        campoTexto3.setVisible(true);            // Mostramos el campo de texto 3
-        campoTexto4.setVisible(true);            // Mostramos el campo de texto 4
+        campoTexto1.setVisible(true);       // Mostramos el campo de texto 1
+        campoTexto2.setVisible(true);       // Mostramos el campo de texto 2
+        campoTexto3.setVisible(true);       // Mostramos el campo de texto 3
+        campoTexto4.setVisible(true);       // Mostramos el campo de texto 4
         scrollPane.setVisible(false);       // Mostramos el scrollPane
-        buttonGuardar.setVisible(true);           // Mostramos el boton de guardar
+        buttonGuardar.setVisible(true);     // Mostramos el boton de guardar
         textoInfoSeccion.setVisible(true);  // Mostramos el texto informativo
 
         // Según lo que estemos mostrando será necesario enseñar un campo u otro
@@ -594,10 +589,10 @@ public class Controller {
 
         ocultarTodo();                      // Ocultamos primero todos los elementos
 
-        campoBusqueda.clear();                // Limpiamos el campo de busqueda por si quedaba texto de antes
-        campoBusqueda.setVisible(true);       // Mostramos el campo de busqueda
-        buttonBuscar.setVisible(true);            // Hacemos visible el botón de buscar
-        buttonBuscar.requestFocus();              // Lo ponemos en el focus
+        campoBusqueda.clear();              // Limpiamos el campo de busqueda por si quedaba texto de antes
+        campoBusqueda.setVisible(true);     // Mostramos el campo de busqueda
+        buttonBuscar.setVisible(true);      // Hacemos visible el botón de buscar
+        buttonBuscar.requestFocus();        // Lo ponemos en el focus
     }
 
     public void ocultarTodo() {
@@ -611,8 +606,8 @@ public class Controller {
         campoTexto4.setVisible(false);          // Ocultamos el campo de texto 4
         campoTexto5.setVisible(false);          // Ocultamos el campo de texto 5
         campoTexto6.setVisible(false);          // Ocultamos el campo de texto 6
-        buttonBuscar.setVisible(false);               // Ocultamos el botón de buscar
-        buttonGuardar.setVisible(false);              // Ocultamos el botón de guardar
+        buttonBuscar.setVisible(false);         // Ocultamos el botón de buscar
+        buttonGuardar.setVisible(false);        // Ocultamos el botón de guardar
         textoAyudaFechas.setVisible(false);     // Ocultamos el texto de ayuda para mostrar la fecha
         listView.setVisible(false);             // Ocultamos el textView
     }

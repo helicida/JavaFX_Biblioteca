@@ -7,8 +7,7 @@ import java.util.Date;
  * Created by 46465442z on 24/01/16.
  */
 @Entity
-public class Prestec implements Serializable
-{
+public class Prestec implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
