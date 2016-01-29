@@ -56,13 +56,14 @@
       <TextField fx:id="campoTexto4" layoutX="85.0" layoutY="226.0" prefHeight="26.0" prefWidth="200.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="115.0" />
       <TextField fx:id="campoTexto5" layoutX="85.0" layoutY="268.0" prefHeight="26.0" prefWidth="200.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="115.0" />
       <TextField fx:id="campoTexto6" layoutX="85.0" layoutY="309.0" prefHeight="26.0" prefWidth="200.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="115.0" />
-      <Button fx:id="buttonGuardar" layoutX="100.0" layoutY="355.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="26.0" prefWidth="142.0" text="Guardar" />
+      <Button fx:id="buttonGuardar" layoutX="114.0" layoutY="355.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="26.0" prefWidth="142.0" text="Guardar" />
       <Text fx:id="textoInfoSeccion" fill="WHITE" layoutX="13.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benvingut a la biblioteca" wrappingWidth="376.00000008940697" />
-      <TextField fx:id="campoBusqueda" layoutX="14.0" layoutY="81.0" />
-      <Button fx:id="buttonBuscar" layoutX="203.0" layoutY="81.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+      <TextField fx:id="campoBusqueda" layoutX="40.0" layoutY="66.0" />
+      <Button fx:id="buttonBuscar" layoutX="222.0" layoutY="62.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+      <Button fx:id="buttonBorrarItem" layoutX="275.0" layoutY="37.0" mnemonicParsing="false" onAction="#borrarItem" prefHeight="33.0" prefWidth="116.0" text="Eliminar" />
       <Button fx:id="buttonModificar" layoutX="140.0" layoutY="355.0" mnemonicParsing="false" onAction="#modificar" text="Modificar" visible="false" />
       <Text fx:id="textoAyudaFechas" fill="WHITE" layoutX="16.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.999999165535" />
-       <ScrollPane fx:id="scrollPane" layoutX="1.0" layoutY="29.0" prefHeight="421.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="29.0">
+       <ScrollPane fx:id="scrollPane" layoutX="-2.0" layoutY="29.0" prefHeight="421.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="29.0">
            <content>
                <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo ListView" textAlignment="CENTER" wrappingWidth="399.7294921875">
                <font>

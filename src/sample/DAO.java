@@ -214,7 +214,7 @@ public class DAO {
         }
     }
 
-    public void eliminarLlibre(String toString) {
+    public boolean eliminarLlibre(Llibre llibre) {
 
         try {
             // Con estas dos lineas hacemos la conexión a nuestra BBDD
@@ -222,23 +222,43 @@ public class DAO {
             transaction = session.beginTransaction();
 
             // Eliminamos el libro
-
+            session.delete(llibre);
+            transaction.commit();
             session.close();
+            return true;
         }
-        catch (Exception one){}
+        catch (Exception one){return false;}
     }
 
-    public void eliminarSoci(String toString) {
+    public boolean eliminarSoci(Soci soci) {
 
         try {
             // Con estas dos lineas hacemos la conexión a nuestra BBDD
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            // Eliminamos el socio
-
+            // Eliminamos el libro
+            session.delete(soci);
+            transaction.commit();
             session.close();
+            return true;
         }
-        catch (Exception one){}
+        catch (Exception one){return false;}
+    }
+
+    public boolean eliminarPrestec(Prestec prestec) {
+
+        try {
+            // Con estas dos lineas hacemos la conexión a nuestra BBDD
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Eliminamos el libro
+            session.delete(prestec);
+            transaction.commit();
+            session.close();
+            return true;
+        }
+        catch (Exception one){return false;}
     }
 }

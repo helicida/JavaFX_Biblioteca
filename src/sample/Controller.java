@@ -51,6 +51,7 @@ public class Controller {
     public Button buttonGuardar;    // Boton para guardar
     public Button buttonBuscar;     // Boton para buscar
     public Button buttonModificar;  // Boton para modificar
+    public Button buttonBorrarItem; // Boton para eliminar un item
 
     public ListView listView;   // ListView para mostrar datos
 
@@ -177,7 +178,8 @@ public class Controller {
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                tipoModificar = "prestec";
+                buttonBorrarItem.setVisible(true);
             }
         });
     }
@@ -617,10 +619,38 @@ public class Controller {
 
             socis.set(idSelected, soci);
             observableSocis.set(idSelected, soci.toString());
-            DAO.modificarSoci(soci);                               // Anyadimos el socio a nuestra BBDD
+            DAO.modificarSoci(soci);                              // Anyadimos el socio a nuestra BBDD
 
             ocultarTodo();
             listaLlibres(null);
+        }
+    }
+
+    public void borrarItem(ActionEvent actionEvent) {
+
+        int idSelected = listView.getSelectionModel().getSelectedIndex();
+
+        // Para eliminar libros, socios o prestamos
+        if(tipoModificar.equals("libro")){
+            if(DAO.eliminarLlibre(llibres.get(idSelected))){
+                llibres.remove(idSelected);
+                observableLlibres.remove(idSelected);
+                ocultarTodo();
+            }
+        }
+        else if(tipoModificar.equals("soci")){
+            if(DAO.eliminarSoci(socis.get(idSelected))){
+                socis.remove(idSelected);
+                observableSocis.remove(idSelected);
+                ocultarTodo();
+            }
+        }
+        else if(tipoModificar.equals("prestec")){
+            if(DAO.eliminarPrestec(prestecs.get(idSelected))){
+                prestecs.remove(idSelected);
+                observablePrestec.remove(idSelected);
+                ocultarTodo();
+            }
         }
     }
 
@@ -631,7 +661,7 @@ public class Controller {
        // El id del list view será igual a la posición en el arrayList del item seleccionado
 
         if(tipoModificar.equals("libro")){  // Si lo que queremos modificar es un libro
-            tipoNuevo = "libro";
+            tipoNuevo = "libro";    // Si lo que queremos modificar es un libro
 
             // Seteamos todos los campos con los datos del libro que queremos modificar
             campoTexto1.setText(llibres.get(idListView).getTitol());
@@ -645,11 +675,13 @@ public class Controller {
             mostarCamposCrear(false);         // Y mostramos los campos
 
             // La interfaz de modificar será igual a la de crear per con el botón distinto
-            buttonGuardar.setVisible(false);  // Ocultamos el botón de guardar
-            buttonModificar.setVisible(true); // mostramos el de modificar
+            buttonGuardar.setVisible(false);   // Ocultamos el botón de guardar
+            buttonModificar.setVisible(true);  // mostramos el de modificar
+            buttonBorrarItem.setVisible(true); // Mostrar boton de borrado
+            textoInfoSeccion.setVisible(false);
             buttonModificar.requestFocus();
         }
-        else{
+        else if(tipoModificar.equals("soci")){
             tipoNuevo = "soci"; // Si lo que queremos modificar es un socio
 
             // Seteamos todos los campos con los datos del socio que queremos modificar
@@ -663,9 +695,15 @@ public class Controller {
             mostarCamposCrear(false);   // Y mostramos los campos
 
             // La interfaz de modificar será igual a la de crear per con el botón distinto
-            buttonGuardar.setVisible(false);  // Ocultamos el botón de guardar
-            buttonModificar.setVisible(true); // mostramos el de modificar
+            buttonGuardar.setVisible(false);   // Ocultamos el botón de guardar
+            buttonModificar.setVisible(true);  // mostramos el de modificar
+            buttonBorrarItem.setVisible(true); // Mostrar boton de borrado
             buttonModificar.requestFocus();
+        }
+        else if(tipoModificar.equals("prestec")){
+            ocultarTodo();                      // Ocultamos todo
+            buttonBorrarItem.setVisible(true);  // Mostrar boton de borrado
+            textoInfoSeccion.setVisible(false);
         }
     }
 
@@ -737,6 +775,7 @@ public class Controller {
         buttonBuscar.setVisible(false);         // Ocultamos el botón de buscar
         buttonGuardar.setVisible(false);        // Ocultamos el botón de guardar
         buttonModificar.setVisible(false);      // Ocultamos el botón de modificar
+        buttonBorrarItem.setVisible(false);     // Ocultamos el botón de borrar
         textoAyudaFechas.setVisible(false);     // Ocultamos el texto de ayuda para mostrar la fecha
         listView.setVisible(false);             // Ocultamos el textView
     }
@@ -783,5 +822,3 @@ public class Controller {
         }
     }
 }
-
-
