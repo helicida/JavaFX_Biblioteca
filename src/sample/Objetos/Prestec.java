@@ -11,7 +11,9 @@ public class Prestec implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = Llibre.class, fetch = FetchType.LAZY)
     private Llibre llibre;
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = Soci.class, fetch = FetchType.LAZY)
     private Soci soci;
     private Date dataInici;
     private Date dataFinal;

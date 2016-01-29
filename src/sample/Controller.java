@@ -87,7 +87,7 @@ public class Controller {
             observableSocis.clear();
 
             for(int iterador = 0; iterador < socis.size(); iterador++){
-                observableLlibres.add(socis.get(iterador).toString());
+                observableSocis.add(socis.get(iterador).toString());
             }
         }
         catch (Exception noMembers) {}
@@ -172,6 +172,14 @@ public class Controller {
             listView.setItems(observablePrestec); // Le acoplamos el adaptador al listView
             listView.setVisible(true);            // hacemos visible el listView
         }
+
+        // Para modificar cualquier socio se le hace clic encima
+        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
     }
 
     public void listaLibrosFueraPlazo(ActionEvent actionEvent) {
@@ -417,18 +425,12 @@ public class Controller {
 
         if (tipoNuevo.equals("libro")) {
             afegirLlibre();
-            ocultarTodo();
-            listaLlibres(null);
         }
         else if (tipoNuevo.equals("soci")) {
-            ocultarTodo();
             afegirSoci();
-            listaSocis(null);
         }
         else if (tipoNuevo.equals("prestec")) {
             afegirPrestec();
-            ocultarTodo();
-            listaPrestecs(null);
         }
     }
 
@@ -584,6 +586,7 @@ public class Controller {
             Llibre llibre = new Llibre();
 
             // Y le asignamos su información
+            llibre.setId(llibres.get(idSelected).getId());
             llibre.setTitol(campoTexto1.getText());           // Extaemos el texto del campo y le asignamos titulo
             llibre.setNombreExemplars(campoTexto2.getText()); // Extaemos el texto del campo y le asignamos el numero de ejemplares
             llibre.setEditorial(campoTexto3.getText());       // Extaemos el texto del campo y le asignamos editorial
@@ -593,7 +596,7 @@ public class Controller {
 
             llibres.set(idSelected, llibre);
             observableLlibres.set(idSelected, llibre.toString());
-            // DAO.afegirLlibre(llibre);                               // Anyadimos el libro a nuestra BBDD
+            DAO.modificarLlibre(llibre);                               // Anyadimos el libro a nuestra BBDD
 
             ocultarTodo();
             listaLlibres(null);
@@ -605,6 +608,7 @@ public class Controller {
             Soci soci = new Soci();
 
             // Y le asignamos su información
+            soci.setId(socis.get(idSelected).getId());
             soci.setNom(campoTexto1.getText());          // Extaemos el texto del campo y le asignamos nombre
             soci.setCognom(campoTexto2.getText());       // Extaemos el texto del campo y le asignamos apellidos
             soci.setEdat(campoTexto3.getText());         // Extaemos el texto del campo y le asignamos la edad
@@ -613,7 +617,7 @@ public class Controller {
 
             socis.set(idSelected, soci);
             observableSocis.set(idSelected, soci.toString());
-            DAO.afegirSoci(soci);                               // Anyadimos el socio a nuestra BBDD
+            DAO.modificarSoci(soci);                               // Anyadimos el socio a nuestra BBDD
 
             ocultarTodo();
             listaLlibres(null);
@@ -682,12 +686,11 @@ public class Controller {
         }
 
         // Hacemos visible los elementos
-
+        scrollPane.setVisible(false);       // Ocultamos el scrollPane
         campoTexto1.setVisible(true);       // Mostramos el campo de texto 1
         campoTexto2.setVisible(true);       // Mostramos el campo de texto 2
         campoTexto3.setVisible(true);       // Mostramos el campo de texto 3
         campoTexto4.setVisible(true);       // Mostramos el campo de texto 4
-        scrollPane.setVisible(false);       // Mostramos el scrollPane
         buttonGuardar.setVisible(true);     // Mostramos el boton de guardar
         textoInfoSeccion.setVisible(true);  // Mostramos el texto informativo
 
@@ -744,16 +747,16 @@ public class Controller {
         Platform.exit();
     }
 
-    public void deleteAll(ActionEvent actionEvent) {
+    public void borrarTodo(ActionEvent actionEvent) {
 
-        if (DAO.eliminarTotsElsLlibres()) {     // Si ha sido posible eliminar los libros de la BBDD vacía tambien nuestro arrayList
-            llibres.clear();
+        if (DAO.eliminarTotsElsPrestecs()){     // Si ha sido posible eliminar los prestamos de la BBDD vacía tambien nuestro arrayList
+            prestecs.clear();
         }
         if (DAO.eliminarTotsElsSocis()) {       // Si ha sido posible eliminar los socios de la BBDD vacía tambien nuestro arrayList
             socis.clear();
         }
-        if (DAO.eliminarTotsElsPrestecs()){     // Si ha sido posible eliminar los prestamos de la BBDD vacía tambien nuestro arrayList
-            prestecs.clear();
+        if (DAO.eliminarTotsElsLlibres()) {     // Si ha sido posible eliminar los libros de la BBDD vacía tambien nuestro arrayList
+            llibres.clear();
         }
     }
 

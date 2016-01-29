@@ -1,5 +1,8 @@
 package sample.Objetos;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -24,6 +27,8 @@ public class Llibre implements Serializable {
     }
 
     // Getters
+
+    public long getId() {return id;}
     
     public String getTitol() {return titol;}
 
@@ -39,6 +44,9 @@ public class Llibre implements Serializable {
 
 
     // Setters
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setTitol(String titol) {this.titol = titol;}
 

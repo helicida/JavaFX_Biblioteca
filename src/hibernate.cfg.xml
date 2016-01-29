@@ -9,10 +9,13 @@
         <property name="connection.password">sergi2</property>
         <property name="connection.pool_size">1</property>
         <!--   <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
+        <property name="show_sql">true</property>
         <!--    <property name="show_sql">true</property>-->
         <property name="hbm2ddl.auto">update</property>  <!--create-drop-->
         <mapping class="sample.Objetos.Llibre" />
         <mapping class="sample.Objetos.Prestec" />
         <mapping class="sample.Objetos.Soci" />
+
+
     </session-factory>
 </hibernate-configuration>

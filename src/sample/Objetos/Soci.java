@@ -25,6 +25,8 @@ public class Soci implements Serializable {
 
     // Getters
 
+    public long getId() {return id;}
+
     public String getNom() {
         return nom;
     }
@@ -46,6 +48,8 @@ public class Soci implements Serializable {
     }
 
     // Setters
+
+    public void setId(long id) {this.id = id;}
 
     public void setNom(String nom) {
         this.nom = nom;

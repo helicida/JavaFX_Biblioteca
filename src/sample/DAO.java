@@ -1,9 +1,6 @@
 package sample;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import sample.Objetos.Llibre;
 import sample.Objetos.Prestec;
 import sample.Objetos.Soci;
@@ -82,6 +79,50 @@ public class DAO {
         }
     }
 
+    // Metodos para modificar informacion de la BBDD
+
+    public void modificarLlibre(Llibre llibre) throws HibernateException {
+
+        try  {
+            // Con estas dos lineas hacemos la conexión a nuestra BBDD
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Guardamos el libro
+            session.update(llibre);
+            transaction.commit();
+        }
+
+        catch (HibernateException one) {
+            transaction.rollback();
+            throw new HibernateException("Error actualitzant el llibre", one);
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    public void modificarSoci(Soci soci) throws HibernateException {
+
+        try  {
+            // Con estas dos lineas hacemos la conexión a nuestra BBDD
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Guardamos el libro
+            session.update(soci);
+            transaction.commit();
+        }
+
+        catch (HibernateException one) {
+            transaction.rollback();
+            throw new HibernateException("Error actualitzant el llibre", one);
+        }
+        finally {
+            session.close();
+        }
+    }
+
     // Métodos para obtener información de la BBDD
 
     public ArrayList<Llibre> obtenirLlibres() {
@@ -127,7 +168,9 @@ public class DAO {
             transaction = session.beginTransaction();
 
             // Eliminamos todos los libros
-            session.createQuery("DELETE FROM Llibre ").executeUpdate();
+            session.createQuery("DELETE FROM Llibre").executeUpdate();
+            transaction.commit();
+            session.close();
             return true;
         }
         catch (Exception one){
@@ -144,6 +187,7 @@ public class DAO {
 
             // Eliminamos todos los socios
             session.createQuery("DELETE FROM Soci").executeUpdate();
+            transaction.commit();
             session.close();
             return true;
         }
@@ -161,6 +205,7 @@ public class DAO {
 
             // Eliminamos todos los prestamos
             session.createQuery("DELETE FROM Prestec").executeUpdate();
+            transaction.commit();
             session.close();
             return true;
         }
@@ -177,7 +222,7 @@ public class DAO {
             transaction = session.beginTransaction();
 
             // Eliminamos el libro
-            session.createQuery("DELETE FROM Llibre WHERE toString LIKE "+toString).executeUpdate();
+
             session.close();
         }
         catch (Exception one){}
@@ -191,7 +236,7 @@ public class DAO {
             transaction = session.beginTransaction();
 
             // Eliminamos el socio
-            session.createQuery("DELETE FROM Soci WHERE toString = " + toString).executeUpdate();
+
             session.close();
         }
         catch (Exception one){}

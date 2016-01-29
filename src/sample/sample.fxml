@@ -43,7 +43,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Otros">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#deleteAll" text="Borrar Todo" />
+                  <MenuItem mnemonicParsing="false" onAction="#borrarTodo" text="Borrar Todo" />
                   <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
                   <MenuItem mnemonicParsing="false" onAction="#close" text="Tancar" />
                </items>
@@ -60,7 +60,7 @@
       <Text fx:id="textoInfoSeccion" fill="WHITE" layoutX="13.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benvingut a la biblioteca" wrappingWidth="376.00000008940697" />
       <TextField fx:id="campoBusqueda" layoutX="14.0" layoutY="81.0" />
       <Button fx:id="buttonBuscar" layoutX="203.0" layoutY="81.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
-      <Button fx:id="buttonModificar" layoutX="140.0" layoutY="355.0" mnemonicParsing="false" onAction="#modificar" text="Button" visible="false" />
+      <Button fx:id="buttonModificar" layoutX="140.0" layoutY="355.0" mnemonicParsing="false" onAction="#modificar" text="Modificar" visible="false" />
       <Text fx:id="textoAyudaFechas" fill="WHITE" layoutX="16.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.999999165535" />
        <ScrollPane fx:id="scrollPane" layoutX="1.0" layoutY="29.0" prefHeight="421.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="29.0">
            <content>
