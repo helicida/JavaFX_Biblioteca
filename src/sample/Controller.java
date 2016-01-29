@@ -48,8 +48,9 @@ public class Controller {
     public TextField campoTexto5;   // Campo5
     public TextField campoTexto6;   // Campo6
 
-    public Button buttonGuardar;  // Boton para guardar
-    public Button buttonBuscar;   // Boton para buscar
+    public Button buttonGuardar;    // Boton para guardar
+    public Button buttonBuscar;     // Boton para buscar
+    public Button buttonModificar;  // Boton para modificar
 
     public ListView listView;   // ListView para mostrar datos
 
@@ -64,7 +65,7 @@ public class Controller {
     // Metodos
 
     public void initialize() {
-        //descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
+        descargarDatosBBDD();   // Con el primer metodo llenamos nuestro array con la información de la base de datos
     }
 
     public void descargarDatosBBDD() {
@@ -111,7 +112,6 @@ public class Controller {
         scrollPane.setVisible(true);                    // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
-
         if (llibres.size() == 0){
             listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap llibre");
@@ -138,7 +138,6 @@ public class Controller {
         scrollPane.setVisible(true);               // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
-
         if (socis.size() == 0){
             listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap soci");
@@ -165,7 +164,6 @@ public class Controller {
         scrollPane.setVisible(true);                 // Hacemos visible el scrollPane con el texto
 
         // Comprobamos nuestro array y mostramos lo que contiene
-
         if (prestecs.size() == 0){
             listView.setItems(null);
             scrollText.setText(scrollText.getText() + "\n\n- No n'hi ha cap prestec");
@@ -218,7 +216,6 @@ public class Controller {
         }
 
         // Miramos qué hemos encontrado y segun si hay reusltados mostramos una cosa u otra
-
         if(sociosFueraPlazo.size() == 0){
             listView.setItems(null);
             scrollText.setText("    No n'hi han resultats");
@@ -255,6 +252,7 @@ public class Controller {
             llibres.add(llibre);                        // Anyadimos el libro a nuestro ArrayList
             DAO.afegirLlibre(llibre);                   // Anyadimos el libro a nuestra BBDD
 
+            ocultarTodo();
             textoInfoSeccion.setVisible(true);          // Hacemos visible el texto informativo
             textoInfoSeccion.setText("\nS'ha creat correctament el llibre: \n" + llibre.toString());
 
@@ -285,6 +283,7 @@ public class Controller {
             socis.add(soci);                        // Anyadimos el libro a nuestro ArrayList
             DAO.afegirSoci(soci);                   // Anyadimos el libro a nuestra BBDD
 
+            ocultarTodo();
             textoInfoSeccion.setVisible(true);      // Hacemos visible el texto informativo
             textoInfoSeccion.setText("\nS'ha creat correctament el soci: \n" + soci.toString());
         }
@@ -321,8 +320,7 @@ public class Controller {
                 Date dataInici = formatData.parse(campoTexto3.getText());
                 Date dataFinal = formatData.parse(campoTexto4.getText());
 
-                // Primero escondemos todos los objetos
-                ocultarTodo();
+                ocultarTodo();       // Primero escondemos todos los objetos
 
                 prestec.setDataInici(dataInici);    // Le damos la fecha de inicio del prestamo
                 prestec.setDataFinal(dataFinal);    // Aqui le da mos la fecha de finalizacion
@@ -419,12 +417,18 @@ public class Controller {
 
         if (tipoNuevo.equals("libro")) {
             afegirLlibre();
+            ocultarTodo();
+            listaLlibres(null);
         }
         else if (tipoNuevo.equals("soci")) {
+            ocultarTodo();
             afegirSoci();
+            listaSocis(null);
         }
         else if (tipoNuevo.equals("prestec")) {
             afegirPrestec();
+            ocultarTodo();
+            listaPrestecs(null);
         }
     }
 
@@ -475,6 +479,8 @@ public class Controller {
         mostrarCamposBusqueda();            // Mostramos los campos necesarios para buscar
         textoInfoSeccion.setVisible(true);  // Mostramos el texto auxiliar
     }
+
+    // Buttons
 
     public void buscar(ActionEvent actionEvent) {
 
@@ -569,6 +575,53 @@ public class Controller {
         }
     }
 
+    public void modificar(ActionEvent actionEvent) {
+
+        if (tipoModificar.equals("libro")) {
+
+            int idSelected = listView.getSelectionModel().getSelectedIndex();
+
+            Llibre llibre = new Llibre();
+
+            // Y le asignamos su información
+            llibre.setTitol(campoTexto1.getText());           // Extaemos el texto del campo y le asignamos titulo
+            llibre.setNombreExemplars(campoTexto2.getText()); // Extaemos el texto del campo y le asignamos el numero de ejemplares
+            llibre.setEditorial(campoTexto3.getText());       // Extaemos el texto del campo y le asignamos editorial
+            llibre.setNombrePagines(campoTexto4.getText());   // Extaemos el texto del campo y le asignamos numero de paginas
+            llibre.setAnyEdicio(campoTexto5.getText());       // Extaemos el texto del campo y le asignamos el anyo de edicion
+            llibre.setAutor(campoTexto6.getText());           // Extaemos el texto del campo y le asignamos autor
+
+            llibres.set(idSelected, llibre);
+            observableLlibres.set(idSelected, llibre.toString());
+            // DAO.afegirLlibre(llibre);                               // Anyadimos el libro a nuestra BBDD
+
+            ocultarTodo();
+            listaLlibres(null);
+        }
+        else if(tipoModificar.equals("soci")){
+
+            int idSelected = listView.getSelectionModel().getSelectedIndex();
+
+            Soci soci = new Soci();
+
+            // Y le asignamos su información
+            soci.setNom(campoTexto1.getText());          // Extaemos el texto del campo y le asignamos nombre
+            soci.setCognom(campoTexto2.getText());       // Extaemos el texto del campo y le asignamos apellidos
+            soci.setEdat(campoTexto3.getText());         // Extaemos el texto del campo y le asignamos la edad
+            soci.setDireccio(campoTexto4.getText());     // Extaemos el texto del campo y le asignamos una direccion
+            soci.setTelefon(campoTexto5.getText());      // Extaemos el texto del campo y le asignamos un telefono de contacto
+
+            socis.set(idSelected, soci);
+            observableSocis.set(idSelected, soci.toString());
+            DAO.afegirSoci(soci);                               // Anyadimos el socio a nuestra BBDD
+
+            ocultarTodo();
+            listaLlibres(null);
+        }
+    }
+
+    // Métodos para mostrar campos y mostrar la interfaz
+
     public void mostrarCamposModificar(int idListView){
 
        // El id del list view será igual a la posición en el arrayList del item seleccionado
@@ -584,8 +637,13 @@ public class Controller {
             campoTexto5.setText(llibres.get(idListView).getAnyEdicio());
             campoTexto6.setText(llibres.get(idListView).getAutor());
 
-            ocultarTodo();              // Ocultamos todo
-            mostarCamposCrear(false);   // Y mostramos los campos
+            ocultarTodo();                    // Ocultamos todo
+            mostarCamposCrear(false);         // Y mostramos los campos
+
+            // La interfaz de modificar será igual a la de crear per con el botón distinto
+            buttonGuardar.setVisible(false);  // Ocultamos el botón de guardar
+            buttonModificar.setVisible(true); // mostramos el de modificar
+            buttonModificar.requestFocus();
         }
         else{
             tipoNuevo = "soci"; // Si lo que queremos modificar es un socio
@@ -599,6 +657,11 @@ public class Controller {
 
             ocultarTodo();              // Ocultamos todo
             mostarCamposCrear(false);   // Y mostramos los campos
+
+            // La interfaz de modificar será igual a la de crear per con el botón distinto
+            buttonGuardar.setVisible(false);  // Ocultamos el botón de guardar
+            buttonModificar.setVisible(true); // mostramos el de modificar
+            buttonModificar.requestFocus();
         }
     }
 
@@ -670,6 +733,7 @@ public class Controller {
         campoTexto6.setVisible(false);          // Ocultamos el campo de texto 6
         buttonBuscar.setVisible(false);         // Ocultamos el botón de buscar
         buttonGuardar.setVisible(false);        // Ocultamos el botón de guardar
+        buttonModificar.setVisible(false);      // Ocultamos el botón de modificar
         textoAyudaFechas.setVisible(false);     // Ocultamos el texto de ayuda para mostrar la fecha
         listView.setVisible(false);             // Ocultamos el textView
     }
@@ -707,6 +771,7 @@ public class Controller {
 
         alert.showAndWait();
     }
+
 
     // Clase auxiliar para gestionar las excepciones
     public class InvalidDateException extends Exception {
