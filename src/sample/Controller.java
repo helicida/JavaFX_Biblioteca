@@ -263,8 +263,7 @@ public class Controller {
             DAO.afegirLlibre(llibre);                   // Anyadimos el libro a nuestra BBDD
 
             ocultarTodo();
-            textoInfoSeccion.setVisible(true);          // Hacemos visible el texto informativo
-            textoInfoSeccion.setText("\nS'ha creat correctament el llibre: \n" + llibre.toString());
+            listaLlibres(null);
 
         }
     }
@@ -294,8 +293,7 @@ public class Controller {
             DAO.afegirSoci(soci);                   // Anyadimos el libro a nuestra BBDD
 
             ocultarTodo();
-            textoInfoSeccion.setVisible(true);      // Hacemos visible el texto informativo
-            textoInfoSeccion.setText("\nS'ha creat correctament el soci: \n" + soci.toString());
+            listaSocis(null);
         }
     }
 
