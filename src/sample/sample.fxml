@@ -65,7 +65,7 @@
       <Text fx:id="textoAyudaFechas" fill="WHITE" layoutX="16.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.999999165535" />
        <ScrollPane fx:id="scrollPane" layoutX="-2.0" layoutY="29.0" prefHeight="421.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="29.0">
            <content>
-               <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo ListView" textAlignment="CENTER" wrappingWidth="399.7294921875">
+               <Text fx:id="scrollText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Biblioteca" textAlignment="CENTER" wrappingWidth="399.7294921875">
                <font>
                   <Font size="25.0" />
                </font></Text>

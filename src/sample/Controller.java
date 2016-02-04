@@ -264,7 +264,6 @@ public class Controller {
 
             ocultarTodo();
             listaLlibres(null);
-
         }
     }
 
@@ -346,12 +345,10 @@ public class Controller {
                 }
 
                 try  {
-                    textoInfoSeccion.setText("\nCREAT PRESTEC: \n" + prestec.toString());
-                    textoInfoSeccion.setVisible(true);    // Hacemos visible nuestro texto
-
                     observablePrestec.add(prestec.toString());   // Anyadimos la informacion del prestamo a nuestro observableList
                     prestecs.add(prestec);                       // anyadimos el prestamo a nuestro arrayList
                     DAO.afegirPrestec(prestec);                 // anyadimos el prestamo a la BBDD
+                    listaPrestecs(null);
 
                 } catch (Exception one) {
                     textoInfoSeccion.setText("\nLa informacio cercada no esta disponible");
@@ -412,7 +409,7 @@ public class Controller {
         campoTexto1.setPromptText("Titol Llibre");                                              // Le damos el texto provisional al campoTexto1
         campoTexto2.setPromptText("Nom Soci");                                                  // Le damos el texto provisional al campoTexto2
         campoTexto3.setPromptText("Data Inici DD/MM/YYYY");                                     // Le damos el texto provisional al campoTexto3
-        campoTexto4.setPromptText("Data Final DD/MM/YYYY");                                      // Le damos el texto provisional al campoTexto4
+        campoTexto4.setPromptText("Data Final DD/MM/YYYY");                                     // Le damos el texto provisional al campoTexto4
         textoAyudaFechas.setText("\nEl format de les Dates ha de ser   \"  DD/MM/YYYY  \"");    // Texto de advertencia para las fechas
 
         mostarCamposCrear(true);            // Mostramos todos los campos correspondientes a crear un prestamo
@@ -701,7 +698,7 @@ public class Controller {
         else if(tipoModificar.equals("prestec")){
             ocultarTodo();                      // Ocultamos todo
             buttonBorrarItem.setVisible(true);  // Mostrar boton de borrado
-            textoInfoSeccion.setVisible(false);
+            textoInfoSeccion.setVisible(false); // Ocultamos el texto de seccion
         }
     }
 
